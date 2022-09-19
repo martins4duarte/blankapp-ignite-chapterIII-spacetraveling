@@ -1,0 +1,8 @@
+{
+  "apiEndpoint": "https://blankapp-ignite-nextjs.prismic.io/api/v2",
+  "repoName": "blankapp-ignite-nextjs",
+  "libraries": [
+    "@/slices"
+  ],
+  "_latest": "0.4.2"
+}

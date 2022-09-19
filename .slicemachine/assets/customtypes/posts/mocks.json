@@ -1,0 +1,70 @@
+{
+  "id": "mock-doc-id",
+  "url": null,
+  "type": "posts",
+  "href": null,
+  "tags": [],
+  "first_publication_date": "1970-01-01T00:00:01+0000",
+  "last_publication_date": "1970-01-01T00:00:01+0000",
+  "slugs": [],
+  "linked_documents": [],
+  "lang": "en-us",
+  "alternate_languages": [],
+  "data": {
+    "title": [
+      {
+        "type": "heading2",
+        "text": "Cloth",
+        "spans": []
+      }
+    ],
+    "subtitle": [
+      {
+        "type": "paragraph",
+        "text": "Laborum velit enim culpa. Officia sunt voluptate officia incididunt ad reprehenderit aute labore aliquip enim dolore labore nostrud velit.",
+        "spans": []
+      }
+    ],
+    "author": [
+      {
+        "type": "paragraph",
+        "text": "Et cillum eiusmod veniam enim consectetur quis eiusmod eu excepteur dolor amet eiusmod nulla fugiat.",
+        "spans": []
+      }
+    ],
+    "reading_time": [
+      {
+        "type": "paragraph",
+        "text": "Laboris non ullamco deserunt sint cupidatat dolore anim aliquip proident esse. Cillum et labore aliquip Lorem consectetur ut laboris tempor anim pariatur aute eu exercitation est esse.",
+        "spans": []
+      }
+    ],
+    "banner": {
+      "dimensions": {
+        "width": 900,
+        "height": 500
+      },
+      "alt": null,
+      "copyright": null,
+      "url": "https://images.unsplash.com/photo-1593642532973-d31b6557fa68"
+    },
+    "content": [
+      {
+        "heading": [
+          {
+            "type": "paragraph",
+            "text": "Lorem eiusmod quis ut enim irure amet anim consequat. Aute exercitation voluptate aliquip qui nisi sint consectetur ut quis. Cillum adipisicing commodo elit do proident non sunt id.",
+            "spans": []
+          }
+        ],
+        "body": [
+          {
+            "type": "paragraph",
+            "text": "Ipsum quis est labore aliqua do laboris nisi in reprehenderit nisi dolor amet. Officia adipisicing fugiat voluptate qui velit do nisi cupidatat mollit labore elit non commodo deserunt.",
+            "spans": []
+          }
+        ]
+      }
+    ]
+  }
+}

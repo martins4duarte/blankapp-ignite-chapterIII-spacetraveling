@@ -11,7 +11,7 @@
 
   a {
     h1 {
-      font-size: 3.2rem;
+      font-size: 4rem;
     }
   }
 }
@@ -20,16 +20,37 @@
   display: flex;
   margin-top: 2rem;
   
-
   div {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 1rem;
+    margin: 0 2rem 2rem 0;
     gap: 0.5rem;
+
+    font-size: 0.91rem;
 
     time, a {
       color: var(--gray-300);
+      
     }
+
+    time {
+      text-transform: capitalize;
+    }
+  }
+}
+
+.contentArticle {
+  margin-top: 2rem;
+
+  h1 {
+    margin: 2.5rem 0;
+    font-size: 2rem;
+  }
+
+  p, li {
+    margin-top: 1rem;
+    line-height: 1.5rem;
+    color: var(--gray-300);
   }
 }
