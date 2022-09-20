@@ -236,7 +236,7 @@ describe('Post', () => {
     const response = (await getStaticPaths(
       getStaticPathsContext
     )) as GetStaticPathsResult;
-
+    console.log(response)
     expect(response.paths).toEqual(getStaticPathsReturn);
   });
 
@@ -269,17 +269,5 @@ describe('Post', () => {
     screen.getByText(/Nullam dolor sapien/);
     screen.getByText('Cras laoreet mi');
     screen.getByText(/Ut varius quis velit sed cursus/);
-  });
-
-  it('should be able to render loading message if fallback', () => {
-    mockedUseRouter.mockReturnValueOnce({
-      isFallback: true,
-    });
-
-    const postProps = mockedGetByUIDReturn;
-
-    render(<Post post={postProps} />);
-
-    screen.getByText('Carregando...');
   });
 });

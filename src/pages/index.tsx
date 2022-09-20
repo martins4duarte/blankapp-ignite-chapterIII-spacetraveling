@@ -1,7 +1,6 @@
-import { GetStaticProps } from 'next';
+import { GetStaticProps,  } from 'next';
 import Head from 'next/head';
 import { getPrismicClient } from '../services/prismic';
-import * as prismic from '@prismicio/client'
 import { RichText } from 'prismic-dom'
 import Link from 'next/link'
 import styles from './home.module.scss';
@@ -121,7 +120,7 @@ export const getStaticProps: GetStaticProps = async () => {
   });
 
 
-  const posts = postsResponse.results.map(post => {
+  const posts = postsResponse.results?.map(post => {
     return {
       slug: post.uid,
       title: RichText.asText(post.data.title),
