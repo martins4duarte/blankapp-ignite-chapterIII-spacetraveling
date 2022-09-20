@@ -5,15 +5,18 @@ import { RichText } from 'prismic-dom'
 import { format } from 'date-fns';
 import styles from './post.module.scss';
 import ptBR from 'date-fns/locale/pt-BR';
+import Header from '../../components/Header';
+import { FiCalendar, FiClock, FiUser } from 'react-icons/fi';
 
 interface IPostProps {
   first_publication_date: string | null;
   slug: string;
   title: string;
   banner: string;
+  subtitle: string;
   readingTime: string;
   author: string;
-  date: Date;
+  date: string;
   content: {
     heading: string;
     body: {
@@ -29,8 +32,10 @@ interface PostProps {
 export default function Post({ post }: PostProps) {
   return (
     <>
+      <Header />
+      
       <main className={styles.container}>
-        <img src="/images/Banner.png" alt={post.slug} width="100%" />
+        <img src="/images/Banner.png" alt="logo" width="100%" />
 
         <div className={styles.post}>
           <a>
@@ -38,15 +43,15 @@ export default function Post({ post }: PostProps) {
 
             <div className={styles.contentInfo}>
               <div>
-                <img src="/images/date-icon.svg" alt="ignews" />
+                <FiCalendar color="#BBBBBB" size={20} />
                 <time>{post.date}</time>
               </div>
               <div>
-                <img src="/images/user-icon.svg" alt="ignews" />
+                <FiUser color="#BBBBBB" size={20} />
                 <a>{post.author}</a>
               </div>
               <div>
-                <img src="/images/clock-icon.svg" alt="ignews" />
+                <FiClock color="#BBBBBB" size={20} />
                 <a>{post.readingTime}</a>
               </div>
             </div>

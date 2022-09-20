@@ -7,6 +7,8 @@ import Link from 'next/link'
 import styles from './home.module.scss';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import { FiCalendar, FiUser } from 'react-icons/fi'
+import { useState } from 'react';
 
 interface Post {
   slug?: string;
@@ -18,15 +20,42 @@ interface Post {
 }
 
 interface PostPagination {
-  next_page: string;
   posts: Post[];
+  next_page: string;
 }
 
 interface HomeProps {
-  postsPagination: PostPagination;
+  postsPagination: PostPagination
 }
 
-export default function Home({ posts }: PostPagination) {
+export default function Home({ postsPagination }: HomeProps) {
+  const [currentPosts, setCurrentPosts] = useState<Post[]>(postsPagination.posts);
+  const [nextPage, setNextPage] = useState<string>(postsPagination.next_page);
+
+  async function handleSeeMorePosts() {
+    try {
+      const response = await fetch(nextPage)
+      const data = await response.json()
+
+      setNextPage(data.next_page)
+
+      let morePosts = data.results.map(post => {
+        return {
+          slug: post.uid,
+          title: RichText.asText(post.data.title),
+          author: RichText.asText(post.data.author),
+          subtitle: RichText.asText(post.data.subtitle),
+          date: format(new Date(post.last_publication_date), 'dd.MMM.yyyy', { locale: ptBR }).replace(/\./g, ' ')
+        }
+      })
+
+      setCurrentPosts([...currentPosts, ...morePosts])
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <>
       <Head>
@@ -34,31 +63,46 @@ export default function Home({ posts }: PostPagination) {
       </Head>
 
       <main className={styles.container}>
+
+        <img src="/images/logo.svg" alt="ignews" className={styles.headerImg}/>
+
         <div className={styles.posts}>
-          { posts.map(post => (
-                <div className={styles.postContent}>
-                  <Link href={`/post/${post.slug}`} key={post.slug}>
-                    <h1>{post.title}</h1>
-                  </Link>
-                  <p>{post.subtitle}</p>
-                  <div className={styles.contentInfo}>
-                    <div>
-                      <img src="/images/date-icon.svg" alt="date-icon" />
-                      <time>{post.date}</time>
-                    </div>
-                    <div>
-                      <img src="/images/author-icon.svg" alt="author-icon" />
-                      <a>{post.author}</a>
-                    </div>
-                  </div>
-                </div>
-            ))
+          {currentPosts.map(post => (
+            <div className={styles.postContent} key={post.slug}>
+              <Link href={`/post/${post.slug}`}>
+                <h1 data-testid={post.slug}>{post.title}</h1>
+              </Link>
+              <p>{post.subtitle}</p>
+              <div className={styles.contentInfo}>
+                <span>
+                  <FiCalendar color="#BBBBBB" size={20} />
+                  <time>{post.date}</time>
+                </span>
+                <span>
+                  <FiUser color="#BBBBBB" size={20} />
+                  <a>{post.author}</a>
+                </span>
+              </div>
+            </div>
+          ))
           }
         </div>
 
-        <p className={styles.loadMoreButton}>
-          Carregar mais posts
-        </p>
+        { nextPage 
+          ?
+            (
+              <button
+                className={styles.loadMoreButton}
+                onClick={handleSeeMorePosts}
+              >
+                Carregar mais posts
+              </button>
+            )
+          :
+            (
+              ""
+            )
+        }
 
       </main>
     </>
@@ -66,17 +110,18 @@ export default function Home({ posts }: PostPagination) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
-  const prismicClient = getPrismicClient({});
+  const prismic = getPrismicClient({});
 
-  const response = await prismicClient.get({
-    predicates: [
-      prismic.predicate.at("document.type", "posts")
-    ],
-    fetch: ['Posts.title', 'Posts.content', 'Posts.author'],
+  const postsResponse = await prismic.getByType('posts', {
     pageSize: 1,
-  })
+    orderings: {
+      field: 'last_publication_date',
+      direction: 'desc',
+    },
+  });
 
-  const posts = response.results.map(post => {
+
+  const posts = postsResponse.results.map(post => {
     return {
       slug: post.uid,
       title: RichText.asText(post.data.title),
@@ -86,10 +131,12 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   })
 
-  console.log(posts)
   return {
     props: {
-      posts
+      postsPagination: {
+        posts,
+        next_page: postsResponse.next_page
+      }
     }
   }
 
