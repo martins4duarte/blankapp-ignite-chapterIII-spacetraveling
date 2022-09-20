@@ -7,9 +7,17 @@
 .posts {
   max-width: 1040px;
   margin: 1.2rem auto 0;
+  
+  transition: color 0.2s;
+
+  :hover h1 {
+    filter: brightness(0.9);
+    cursor: pointer;
+  }
 
   h1 {
     font-weight: bold;
+    
   }
 
   p {
@@ -17,7 +25,7 @@
     margin-top: 0.8rem;
   }
 
-  a {
+  .postContent {
     display: block;
 
     & + a {
@@ -41,6 +49,8 @@
           margin-left: 0.5rem;
           font-size: 0.85rem;
           color: var(--gray-300);
+          text-transform: capitalize;
+          text-decoration: none;
         }
     
         a {

@@ -35,10 +35,11 @@ export default function Home({ posts }: PostPagination) {
 
       <main className={styles.container}>
         <div className={styles.posts}>
-          {{ posts.map(post => (
-              <Link href={`/post/${post.slug}`} key={post.slug}>
-                <a>
-                  <h1>{post.title}</h1>
+          { posts.map(post => (
+                <div className={styles.postContent}>
+                  <Link href={`/post/${post.slug}`} key={post.slug}>
+                    <h1>{post.title}</h1>
+                  </Link>
                   <p>{post.subtitle}</p>
                   <div className={styles.contentInfo}>
                     <div>
@@ -50,10 +51,9 @@ export default function Home({ posts }: PostPagination) {
                       <a>{post.author}</a>
                     </div>
                   </div>
-                </a>
-              </Link>
+                </div>
             ))
-          }}
+          }
         </div>
 
         <p className={styles.loadMoreButton}>
